@@ -95,11 +95,19 @@ namespace Довідник_фаната_2.Classes
         //збереження-відкриття
         public EventsList Open()
         {
-            XmlSerializer xml = new XmlSerializer(typeof(EventsList));
-            using (FileStream fs = new FileStream("Calendar.xml", FileMode.OpenOrCreate))
-            {                
-               return (EventsList)xml.Deserialize(fs);
+            try
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(EventsList));
+                using (FileStream fs = new FileStream("Calendar.xml", FileMode.OpenOrCreate))
+                {
+                    return (EventsList)xml.Deserialize(fs);
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Файлу з подіями не існує");
+            }
+            return new EventsList();
         }
     }
 }
