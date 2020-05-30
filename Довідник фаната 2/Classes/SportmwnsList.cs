@@ -62,11 +62,19 @@ namespace Довідник_фаната_2
         //збереження-відкриття
         public SportmwnsList Open()
         {
-            XmlSerializer xml = new XmlSerializer(typeof(SportmwnsList));
-            using (FileStream fs = new FileStream("DovidnikFanataIfo.xml", FileMode.OpenOrCreate))
+            try
             {
-                return (SportmwnsList)xml.Deserialize(fs);
+                XmlSerializer xml = new XmlSerializer(typeof(SportmwnsList));
+                using (FileStream fs = new FileStream("DovidnikFanataIfo.xml", FileMode.OpenOrCreate))
+                {
+                    return (SportmwnsList)xml.Deserialize(fs);
+                }
             }
+            catch
+            {
+                MessageBox.Show("Файл пустий");
+            }
+            return new SportmwnsList();
         }
 
         //видалення
